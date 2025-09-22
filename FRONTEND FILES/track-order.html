@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Order</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Catering Logo" class="rounded-logo" />
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="profile.html">Profile</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </nav>
+  </header>
+  <section id="track-order-section">
+    <h2>Track Your Order</h2>
+    <input type="text" id="order-id-input" placeholder="Enter your Order ID">
+    <button id="track-order-btn">Track Order</button>
+  
+    <div id="order-status" class="hidden">
+      <h3>Order Status</h3>
+      <div class="progress-bar">
+        <div class="step" id="step-received">Received</div>
+        <div class="step" id="step-preparing">Preparing</div>
+        <div class="step" id="step-on-the-way">On The Way</div>
+        <div class="step" id="step-delivered">Delivered</div>
+      </div>
+      <div id="order-summary"></div>
+    </div>
+     <!-- ✅ Back to Menu Button -->
+     <div class="back-btn-container">
+      <button onclick="window.location.href='menu.html'" class="back-btn">
+        ⬅ Back to Menu
+      </button>
+    </div>
+  </section>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Catering Reservation System</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Catering Logo" class="rounded-logo">
+    </div>
+    <nav id="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="profile.html">Profile</a>
+      <a href="login.html">Login</a>
+      <a href="register.html" class="active">Register</a>
+    </nav>
+  </header>
+
+  <!-- Register Section -->
+  <section id="register">
+    <div class="form-container">
+      <h2>Create an Account</h2>
+      <p>Join us to explore amazing catering services!</p>
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="fullname" placeholder=" " required />
+          <label for="fullname">Full Name</label>
+        </div>
+        <div class="input-group">
+          <input type="email" id="email" placeholder=" " required />
+          <label for="email">Email</label>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder=" " required />
+          <label for="password">Password</label>
+        </div>
+        <div class="input-group">
+          <input type="password" id="confirm-password" placeholder=" " required />
+          <label for="confirm-password">Confirm Password</label>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <p class="switch-link">Already have an account? <a href="login.html">Log In</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="modern-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p><strong>Email:</strong> jatinkhatik@cateringservice.com</p>
+        <p><strong>Phone:</strong> +9023258621</p>
+        <p><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-media">
+          <a href="#"><img src="images/facebook-icon.png" alt="Facebook"></a>
+          <a href="#"><img src="images/instagram-icon.png" alt="Instagram"></a>
+          <a href="#"><img src="images/twitter-icon.png" alt="Twitter"></a>
+          <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn"></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Subscribe to Our Newsletter</h3>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Catering Reservation System | All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <!-- Firebase and Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAr7p_8Ab7b4C9Cw3zog5XXN-y2lNzxnYE",
+      authDomain: "catering-reservation-and-order.firebaseapp.com",
+      databaseURL: "https://catering-reservation-and-order-default-rtdb.firebaseio.com",
+      projectId: "catering-reservation-and-order",
+      storageBucket: "catering-reservation-and-order.firebasestorage.app",
+      messagingSenderId: "525003731481",
+      appId: "1:525003731481:web:46e22e16cd3d3d05a5f088",
+      measurementId: "G-P8Z7GGMPHG"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Register Function
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const fullname = document.getElementById("fullname").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Save user info to DB
+          const user = userCredential.user;
+          firebase.database().ref("users/" + user.uid).set({
+            fullname: fullname,
+            email: email
+          });
+
+          alert("Registration Successful!");
+          window.location.href = "index.html"; // Redirect to Home
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>
